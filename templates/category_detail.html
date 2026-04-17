@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% comment %} {% block content %}
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-20">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">{{ category.type }}</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">These are the leads under this category </p>
+    </div>
+    <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+      <table class="table-auto w-full text-left whitespace-no-wrap">
+        <thead>
+          <tr>
+            <th
+              class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl border">
+              First Name</th>
+            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 border">Last
+              Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for lead in leads %}
+          <tr>
+            <td class="px-4 py-3 border">{{lead.first_name}}
+            </td>
+            <td class="px-4 py-3 border">{{lead.last_name}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% endblock %} {% endcomment %}
+
+
+
+
+
+{% block content %}
+
+<div class="max-w-5xl mx-auto mt-10">
+
+    <!-- HEADER -->
+    <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-white">
+            {{ category.type }}
+        </h1>
+        <p class="text-gray-400 mt-2">
+            These are the leads under this category
+        </p>
+    </div>
+
+    <!-- CARD -->
+    <div class="bg-gray-900/70 backdrop-blur border border-gray-800 rounded-2xl shadow-xl overflow-hidden">
+
+        <!-- TABLE -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+
+                <!-- HEAD -->
+                <thead class="bg-gray-800/60 text-gray-300 text-sm uppercase tracking-wider">
+                    <tr>
+                        <th class="px-6 py-4">First Name</th>
+                        <th class="px-6 py-4">Last Name</th>
+                    </tr>
+                </thead>
+
+                <!-- BODY -->
+                <tbody class="divide-y divide-gray-800 text-gray-200">
+
+                    {% for lead in leads %}
+                    <tr class="hover:bg-gray-800/40 transition">
+                        <td class="px-6 py-4">
+                            {{ lead.first_name }}
+                        </td>
+                        <td class="px-6 py-4 text-gray-300">
+                            {{ lead.last_name }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

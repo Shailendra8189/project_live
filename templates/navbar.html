@@ -1,0 +1,119 @@
+{% comment %} <header class="text-gray-600 body-font">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+        viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      </svg>
+      <span class="ml-3 text-xl">Django CRM</span>
+    </a>
+    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+      {% if not request.user.is_authenticated %}
+      <a class="hover:text-blue-500" href="{% url 'signup' %}">Signup</a>
+      {% endif %}
+    </nav>
+    {% if request.user.is_authenticated %}
+    {% if request.user.role == "organizer" %}
+    <a href="{% url 'agent:agents' %}"
+      class="inline-flex items-center bg-gray-100 border-0 py-1 px-3  hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Agents
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      </svg>
+    </a>
+    {% endif %}
+    <a href="{% url 'leads:home_page' %}"
+      class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 ml-5 mr-5 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Leads
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      </svg>
+    </a>
+    Logged in as: {{ request.user.username }}
+    <form method="POST" action="{% url 'logout' %}" class="ml-3 inline">
+      {% csrf_token %}
+      <button type="submit"
+        class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+        Logout
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}"
+      class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 ml-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Login
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </a>
+    {% endif %}
+  </div>
+</header> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+<header class="mt-4">
+  <div class="flex items-center justify-between py-4">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center rounded-xl shadow-md">
+        <span class="font-bold text-white">C</span>
+      </div>
+      <span class="text-lg font-semibold tracking-wide">Django CRM</span>
+    </div>
+
+    <!-- Nav -->
+    <div class="flex items-center gap-4">
+
+      {% if not request.user.is_authenticated %}
+        <a class="text-gray-300 hover:text-indigo-400 transition" href="{% url 'signup' %}">
+          Signup
+        </a>
+      {% endif %}
+
+      {% if request.user.is_authenticated %}
+
+        {% if request.user.role == "organizer" %}
+        <a href="{% url 'agent:agents' %}"
+           class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
+           Agents
+        </a>
+        {% endif %}
+
+        <a href="{% url 'leads:home_page' %}"
+           class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
+           Leads
+        </a>
+
+        <span class="text-sm text-gray-400 hidden sm:block">
+          {{ request.user.username }}
+        </span>
+
+        <form method="POST" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button
+            class="bg-gradient-to-r from-red-500 to-red-600 hover:opacity-90 px-4 py-2 rounded-lg text-sm transition shadow-md">
+            Logout
+          </button>
+        </form>
+
+      {% else %}
+        <a href="{% url 'login' %}"
+           class="bg-gradient-to-r from-indigo-500 to-purple-500 hover:opacity-90 px-4 py-2 rounded-lg text-sm transition shadow-md">
+           Login
+        </a>
+      {% endif %}
+
+    </div>
+  </div>
+</header>

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% comment %} {% block content %}
+<div>
+    <a href="{% url 'agent:agents' %}"><b><-- All Agents</b></a>
+    <hr />
+</div>
+<hr />
+</br>
+<p align=center><b>Update Agent: {{agent.manager.username}}</b></p>
+<form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button
+        class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Submit</button>
+</form>
+{% endblock content %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+{% block content %}
+
+<!-- ================= TOP NAV LINK ================= -->
+
+<div class="flex justify-between items-center mb-6">
+
+    <a href="{% url 'agent:agents' %}"
+       class="text-sm text-gray-400 hover:text-indigo-400 transition">
+        ← All Agents
+    </a>
+
+</div>
+
+<!-- ================= CENTER CARD ================= -->
+
+<div class="max-w-2xl mx-auto">
+
+    <div class="bg-gray-900/70 backdrop-blur border border-gray-800 rounded-2xl shadow-xl p-6">
+
+        <!-- Title -->
+        <h1 class="text-2xl font-bold text-center mb-6">
+            Update Agent
+        </h1>
+
+        <p class="text-center text-gray-400 mb-6">
+            {{ agent.manager.username }}
+        </p>
+
+        <!-- FORM -->
+        <form method="POST" class="space-y-5">
+            {% csrf_token %}
+
+            <div class="text-gray-200">
+                {{ form|crispy }}
+            </div>
+
+            <!-- BUTTON -->
+            <button
+                type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-medium py-3 rounded-xl shadow-lg">
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- ================= FORM STYLING ================= -->
+
+<style>
+    input, select, textarea {
+        background-color: #0f172a !important;
+        color: #e5e7eb !important;
+        border: 1px solid #374151 !important;
+        border-radius: 12px !important;
+        padding: 10px !important;
+        width: 100%;
+    }
+
+    textarea {
+        min-height: 120px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        outline: none !important;
+        border-color: #6366f1 !important;
+        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4) !important;
+    }
+
+    label {
+        color: #cbd5e1 !important;
+        font-weight: 500;
+        margin-bottom: 4px;
+    }
+</style>
+
+{% endblock content %}

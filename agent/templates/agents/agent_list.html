@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% comment %} {% block content %}
+<h1 align="center"><b>Here are our Agents</b></h1>
+<hr />
+</br>
+
+<ul>
+    {% for agent in object_list %}
+    <li align="center"><b><a class="hover:text-blue-500" href="{% url 'agent:agent_detail' agent.pk %}">{{ agent.manager.username }}</a></b></li>
+    </br>
+    {% endfor %}
+</ul>
+</br>
+<hr />
+<b><a class="hover:text-blue-500" href="{% url 'agent:create_agent' %}">+ Add Agent</a>
+{% endblock content %} {% endcomment %}
+
+
+
+
+{% block content %}
+
+<!-- ================= TITLE ================= -->
+
+<h1 class="text-3xl font-bold mb-8 tracking-tight">
+    Agents Dashboard
+</h1>
+
+<!-- ================= ADD BUTTON ================= -->
+
+<div class="mb-8">
+    <a href="{% url 'agent:create_agent' %}"
+       class="inline-block px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20">
+        ➕ Add Agent
+    </a>
+</div>
+
+<!-- ================= AGENT GRID ================= -->
+
+<div class="grid gap-5">
+
+    {% for agent in object_list %}
+
+    <div class="bg-gray-900/70 border border-gray-800 rounded-2xl p-5 hover:border-indigo-500 hover:shadow-lg transition">
+
+        <!-- Top Section -->
+        <div class="flex justify-between items-center">
+
+            <div>
+                <h2 class="text-lg font-semibold text-indigo-400">
+                    <a href="{% url 'agent:agent_detail' agent.pk %}">
+                        {{ agent.manager.username }}
+                    </a>
+                </h2>
+
+                <p class="text-sm text-gray-400">
+                    Agent ID: {{ agent.pk }}
+                </p>
+            </div>
+
+            <span class="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-lg">
+                Active
+            </span>
+
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-800 my-4"></div>
+
+        <!-- Info Section -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
+
+            <div>
+                <p class="text-gray-500">Username</p>
+                <p>{{ agent.manager.username }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500">Email</p>
+                <p>{{ agent.manager.email }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500">Role</p>
+                <p>{{ agent.manager.role }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock content %}

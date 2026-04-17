@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10">
+
+    <div class="bg-gray-900/70 backdrop-blur border border-gray-800 rounded-2xl shadow-xl p-6">
+
+        <!-- Title -->
+        <h1 class="text-2xl font-bold text-center mb-6 text-white">
+            Login
+        </h1>
+
+        <p class="text-center text-gray-400 mb-6">
+            Welcome back, please login to continue
+        </p>
+
+        <!-- FORM -->
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+
+            <div class="text-gray-200">
+                {{ form|crispy }}
+            </div>
+
+            <!-- BUTTON -->
+            <button type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-medium py-3 rounded-xl shadow-lg">
+                Login
+            </button>
+
+            <hr class="border-gray-700">
+
+            <div class="text-center">
+                <a href="{% url 'reset_password' %}"
+                   class="text-sm text-gray-400 hover:text-indigo-400 transition">
+                    Forget Password?
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
