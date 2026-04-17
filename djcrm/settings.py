@@ -1,18 +1,9 @@
 from pathlib import Path
-import environ
-from decouple import config
 import os
-
-env = environ.Env(DEBUG=(bool, False))
-
-
-READ_DOT_ENV_FILE = env.bool("READ_DOT_ENV_FILE", default=True)
-if READ_DOT_ENV_FILE:
-    environ.Env.read_env()
 
 
 DEBUG = False
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-dev-key")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -121,7 +112,6 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = "leads.Manager"
 LOGIN_REDIRECT_URL = "/"
