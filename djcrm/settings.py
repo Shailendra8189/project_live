@@ -1,5 +1,7 @@
 from pathlib import Path
 import environ
+from decouple import config
+import os
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -9,14 +11,14 @@ if READ_DOT_ENV_FILE:
     environ.Env.read_env()
 
 
-DEBUG = env("DEBUG")
-SECRET_KEY = env("SECRET_KEY")
+DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = config('SECRET_KEY', default='unsafe-secret-key')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com']
 
 
 # Application definition
@@ -115,7 +117,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = "static_root"
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = "leads.Manager"
 LOGIN_REDIRECT_URL = "/"
@@ -124,3 +127,13 @@ LOGOUT_REDIRECT_URL = "login"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
+
+
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
